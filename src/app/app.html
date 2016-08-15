@@ -4,7 +4,7 @@
   </ons-toolbar>
 
   <div class="content">
-    <ons-tabbar animation="slide" position="auto">
+    <ons-tabbar [attr.animation]="animation" position="auto">
       <div class="tab-bar__content"></div>
       <div class="tab-bar">
         <ons-tab icon="square" label="Tab 1" [page]="first" active></ons-tab>

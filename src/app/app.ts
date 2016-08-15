@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ONS_DIRECTIVES} from 'angular2-onsenui';
+import {ONS_DIRECTIVES, onsPlatform} from 'angular2-onsenui';
 import {First} from './first';
 import {Second} from './second';
 
@@ -12,6 +12,8 @@ import {Second} from './second';
 export class MyApp {
   first = First;
   second = Second;
+
+  animation = onsPlatform.isAndroid() ? 'slide' : 'none';
 
   constructor() {}
 }
