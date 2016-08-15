@@ -1,0 +1,14 @@
+{
+   "framework_version": "3.5",
+   "cordova_version": "5.2",
+   "plugins": [
+      "mobi.monaca.plugins.Monaca",
+      "org.apache.cordova.splashscreen"
+   ],
+   "template-type": "angular2",
+   "build": {
+      "transpile": {
+         "enabled": true
+      }
+   }
+}
