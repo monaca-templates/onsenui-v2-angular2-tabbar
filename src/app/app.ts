@@ -14,6 +14,7 @@ export class MyApp {
   second = Second;
 
   animation = onsPlatform.isAndroid() ? 'slide' : 'none';
+  modifier = onsPlatform.isAndroid() ? 'material noshadow' : '';
 
   constructor() {}
 }
