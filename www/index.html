@@ -1,1 +1,96 @@
-<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"> <meta http-equiv=Content-Security-Policy content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'"> <script type=text/javascript src=components/loader.js></script> <link rel=stylesheet type=text/css href=components/loader.css> <link href=app.css rel=stylesheet></head> <body> <app></app> <script type=text/javascript src=polyfills.bundle.js></script><script type=text/javascript src=vendor.bundle.js></script><script type=text/javascript src=app.bundle.js></script></body> </html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv=Content-Security-Policy content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        section {
+            padding:3rem 2rem 5rem;
+        }
+
+        article {
+            max-width:768px;
+            margin:auto;
+        }
+
+        #english {
+            background-color:#ff1a33;
+            color:#fff;
+        }
+
+        h1 {
+            text-align:center;
+            font-size:1.5em;
+        }
+
+        h2 {
+            margin:2rem 0 0;
+            font-size:1.4em;
+        }
+
+        h3 {
+            margin:1rem 0 0.5rem;
+        }
+
+        p {
+            font-size:0.9rem;
+            line-height:1.5rem;
+        }
+
+        .code {
+            padding:0.1rem 0.2rem 0.2rem;
+            border-radius:2px;
+            font-size:0.9rem;
+        }
+
+        #english .code {
+            background-color:#666;
+        }
+
+        #english a {
+            color:#f0f0f0;
+        }
+
+        #japanese .code {
+            background-color:#f0f0f0;
+        }
+
+    </style>
+</head>
+<body>
+<section id="english">
+    <article>
+        <h1>Thanks for download OnsenUI2.</h1>
+        <h2>How to use OnsenUI2.</h2>
+        <h3>preview</h3>
+        <p>You should use <span class="code">$monaca preview</span> in current directry.</p>
+        <p>This function use <a href="https://webpack.github.io/docs/webpack-dev-server.html">webpack-dev-server</a>.
+            It also prevents webpack from emitting the resulting files to disk. Instead it keeps and serves the resulting files from memory.</p>
+        <p><span class="code">$monaca preview</span> use setting of webpack.dev.config.js  in current directry.</p>
+        <h3>build</h3>
+        <p>If you want use static file, You shold use <span class="code">$monaca transpile</span> in current directry. Monaca CLI transpile static file in folder <span class="code">www/</span></p>
+        <p><span class="code">$monaca preview</span> use setting of <span class="code">webpack.prod.config.js</span> in current directry.</p>
+    </article>
+</section>
+<section id="japanese">
+    <article>
+        <h1>OnsenUI2をご利用いただきありがとうございます</h1>
+        <h2>OnsenUI2の使い方</h2>
+        <h3>プレビュー</h3>
+        <p><span class="code">$monaca preview</span>を使えばリアルタイムにコードの変更をブラウザでプレビューすることができます。</p>
+        <p>この機能は<a href="https://webpack.github.io/docs/webpack-dev-server.html">webpack-dev-server</a>を使って実現しており、
+            メモリ上でエミュレーションして変更を表示しているので、コンパイルして実在ファイルを生成しているわけではないことにお気をつけ下さい。</p>
+        <p><span class="code">$monaca preview</span>は、インストールフォルダにある<span class="code">webpack.dev.config.js</span>の設定を利用します.</p>
+        <h3>ファイル構築</h3>
+        <p>プレビューではなく、実在ファイルを生成するなら、<span class="code">$monaca transpile</span>というコマンドをインストールフォルダで打つ必要があります。
+            すると、Monaca CLIは<span class="code">www/</span>以下に実在ファイルを生成します。</p>
+        <p><span class="code">$monaca preview</span>は、インストールフォルダにある<span class="code">webpack.prod.config.js</span>を利用します。</p>
+    </article>
+</section>
+</body>
+</html>
