@@ -1,5 +1,5 @@
 // Onsen UI Styling and Icons
-require('onsenui/stylus/blue-basic-theme.styl');
+require('./theme.styl');
 require('onsenui/css/onsenui.css');
 
 // Application code starts here
