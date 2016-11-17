@@ -13,7 +13,7 @@
     "@angular/platform-server": "2.2.0",
     "@angular/router": "3.2.0",
     "@angular/upgrade": "2.2.0",
-    "angular2-onsenui": "^1.0.0-rc.3",
+    "angular2-onsenui": "1.0.0-rc.1",
     "core-js": "^2.4.1",
     "onsenui": "^2.0.0",
     "reflect-metadata": "^0.1.8",
