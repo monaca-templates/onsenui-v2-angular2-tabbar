@@ -1,6 +1,6 @@
 {
   "name": "onsenui-v2-angular2-tabbar",
-  "version": "2.2.4+20161220.1",
+  "version": "2.2.4+20161220.2",
   "description": "",
   "dependencies": {
     "@angular/common": "2.1.2",
@@ -11,7 +11,6 @@
     "@angular/platform-browser": "2.1.2",
     "@angular/platform-browser-dynamic": "2.1.2",
     "@types/core-js": "^0.9.35",
-    "@types/node": "0.0.2",
     "angular2-onsenui": "1.0.0-rc.1",
     "core-js": "^2.4.1",
     "onsenui": "2.0.3",
