@@ -20,8 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 
 @NgModule({
     imports: [
-        BrowserModule,
-        OnsenModule,
+        OnsenModule, // has BrowserModule internally
         HttpModule,
     ],
     declarations: [
