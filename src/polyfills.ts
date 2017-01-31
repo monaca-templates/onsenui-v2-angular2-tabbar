@@ -1,5 +1,4 @@
 import 'core-js';
-import 'reflect-metadata';
 require('zone.js/dist/zone');
 if (process.env.NODE_ENV === 'production') {
   // Production
