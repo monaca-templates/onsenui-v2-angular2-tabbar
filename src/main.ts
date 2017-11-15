@@ -6,7 +6,7 @@ require('onsenui/css/onsenui.css');
 import {enableProdMode, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {HttpModule} from '@angular/http';
-import {OnsenModule} from 'angular2-onsenui';
+import {OnsenModule} from 'ngx-onsenui';
 
 import {MyApp} from './app/app';
 import {First} from './app/first';

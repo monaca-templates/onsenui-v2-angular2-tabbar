@@ -11,5 +11,4 @@ import '@angular/http';
 // You can import js, ts, css, sass, ...
 
 // Onsen UI
-window['ons'] = require('onsenui');
-import 'angular2-onsenui';
+import 'ngx-onsenui';

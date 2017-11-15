@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {onsPlatform} from 'angular2-onsenui';
+import * as ons from 'onsenui';
+
 import {First} from './first';
 import {Second} from './second';
 
@@ -12,8 +13,8 @@ export class MyApp {
   first = First;
   second = Second;
 
-  animation = onsPlatform.isAndroid() ? 'slide' : 'none';
-  modifier = onsPlatform.isAndroid() ? 'material noshadow' : '';
+  animation = ons.platform.isAndroid() ? 'slide' : 'none';
+  modifier = ons.platform.isAndroid() ? 'material noshadow' : '';
 
   constructor() {}
 }
