@@ -12,12 +12,24 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "cordova-custom-config": "5.0.2",
+    "cordova-plugin-splashscreen": "5.0.1",
+    "cordova-plugin-whitelist": "1.3.3",
     "core-js": "2.4.1",
+    "mobi.monaca.plugins.Monaca": "3.1.0",
     "ngx-onsenui": "~4.1.0",
     "onsenui": "~2.8.1",
     "rxjs": "5.5.2",
     "ts-loader": "1.3.3",
     "typescript": "2.4.2",
     "zone.js": "0.8.14"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-custom-config": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-whitelist": {},
+      "mobi.monaca.plugins.Monaca": {}
+    }
   }
 }
