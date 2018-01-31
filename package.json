@@ -1,6 +1,6 @@
 {
   "name": "onsenui-v2-angular2-minimum",
-  "version": "2.4.0+20171115.1",
+  "version": "2.4.0+20180131.1",
   "description": "",
   "dependencies": {
     "@angular/animations": "^5.0.0",
