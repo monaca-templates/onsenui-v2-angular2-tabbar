@@ -1,2 +1,7 @@
 node_modules
-
+.monaca/*
+!.monaca/project_info.json
+android/build
+ios/build
+build
+.DS_Store
