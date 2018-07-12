@@ -13,9 +13,7 @@ import {First} from './app/first';
 import {Second} from './app/second';
 
 // Enable production mode when in production mode.
-if (process.env.NODE_ENV === 'production') {
-  enableProdMode();
-}
+if (__PROCESS__.PROD) enableProdMode();
 
 @NgModule({
     imports: [
@@ -39,6 +37,9 @@ if (process.env.NODE_ENV === 'production') {
     ],
 })
 class AppModule {}
+
+
+if (module['hot']) module['hot'].accept();
 
 platformBrowserDynamic().bootstrapModule(AppModule)
 .catch(err => console.error(err));

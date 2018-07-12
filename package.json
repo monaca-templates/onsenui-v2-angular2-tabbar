@@ -18,14 +18,15 @@
     "core-js": "2.4.1",
     "monaca-plugin-monaca-core": "3.2.0",
     "ngx-onsenui": "~4.2.0",
-    "onsenui": "~2.10.0",
+    "onsenui": "^2.10.3",
     "rxjs": "6.2.0",
     "zone.js": "0.8.26"
   },
   "scripts": {
     "monaca:preview": "npm run dev",
     "dev": "webpack-serve --open",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "watch": "webpack --watch & webpack-serve --open"
   },
   "devDependencies": {
     "css-loader": "^0.28.11",
@@ -44,7 +45,6 @@
     "typescript": "~2.9.2",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
-    "webpack-mode": "^1.0.1",
     "webpack-serve": "^2.0.2",
     "yargs": "^12.0.1"
   },

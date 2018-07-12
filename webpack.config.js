@@ -16,24 +16,17 @@ let webpackConfig = {
   mode: devMode ? 'development' : 'production',
 
   entry: {
-    polyfills: './src/polyfills.ts',
-    vendor: './src/vendor.ts',
-    app: './src/main.ts'
+    app: ['./src/polyfills.ts', './src/main.ts', './src/vendor.ts'],
   },
 
   output: {
     path: path.resolve(__dirname, 'www'),
-    // sourceMapFilename: '[name].map',
-    // chunkFilename: '[id].chunk.js',
-    filename: '[name].js',
+    filename: '[name].js'
   },
 
   optimization: {
     removeAvailableModules: true,
     splitChunks: {
-      // chunks (chunk) {
-      //   return ['app', 'vendor', 'polyfills'].includes(chunk.name);
-      // }
       chunks: 'all'
     },
     runtimeChunk: true,
@@ -42,7 +35,7 @@ let webpackConfig = {
   },
 
   resolve: {
-    extensions: ['.ts', '.js', '.json', '.css', '.html', '.styl'],
+    extensions: ['.ts', '.js', '.tsx', '.json', '.css', '.html', '.styl'],
     modules: [
       path.resolve(__dirname, 'src'),
       'node_modules'
@@ -52,19 +45,15 @@ let webpackConfig = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        include: path.resolve(__dirname, 'src'),
-        use: [{
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-            compilerOptions: {
-                target: "es2016",
-                module: "es2015"
-            },
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
           }
-        }]
+        ]
       },
       {
         test: /\.html$/,
@@ -111,7 +100,12 @@ let webpackConfig = {
       filename: "[name].css",
       chunkFilename: "[name].css"
     }),
-    new ProgressBarPlugin()
+    new ProgressBarPlugin(),
+    new webpack.DefinePlugin({
+      '__PROCESS__': {
+        'PROD': !devMode,
+      }
+    })
   ],
 
   resolveLoader: {
@@ -128,10 +122,12 @@ let webpackConfig = {
 */
 if(devMode) {
 
+  webpackConfig.devtool = 'eval';
+
   webpackConfig.serve = {
     port: port,
     host: host,
-    dev: {
+    devMiddleware: {
       publicPath: '/',
       stats: {
         colors: true,
@@ -142,11 +138,13 @@ if(devMode) {
         builtAt: true,
       }
     },
-    hot: true
+    hotClient: true,
+    hmr: true,
+    reload: true
   }
 
   let devPlugins = [
-    new webpack.LoaderOptionsPlugin({ debug: true })
+    new webpack.LoaderOptionsPlugin({ debug: true }),
   ];
   
   webpackConfig.plugins = webpackConfig.plugins.concat( devPlugins　);
