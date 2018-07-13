@@ -7,7 +7,9 @@ import {Second} from './second';
 @Component({
   selector: 'app',
   template: require('./app.html'),
-  styles: [require('./app.css')]
+  styles: [
+  	'./app.css'
+  ]
 })
 export class MyApp {
   first = First;
