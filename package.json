@@ -23,7 +23,7 @@
     "zone.js": "0.8.26"
   },
   "scripts": {
-    "monaca:preview": "webpack-serve --open & webpack --watch --mode production",
+    "monaca:preview": "npm run dev & npm run watch",
     "monaca:transpile": "npm run build",
     "monaca:debug": "npm run watch",
     "dev": "webpack-serve --open",
