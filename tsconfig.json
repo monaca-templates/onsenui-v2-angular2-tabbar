@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "target": "es5",
     "typeRoots": [
-      "node_modules/@types"
+      "./typingss"
     ],
     "lib": [
       "es2017",
