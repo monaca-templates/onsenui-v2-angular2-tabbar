@@ -8,7 +8,7 @@ const argvs = require('yargs').argv;
 const devMode = process.env.WEBPACK_SERVE || argvs.mode === 'development';
 
 const DEFAULT_PORT = 8080;
-const host = process.env.MONACA_TERMINAL ? '0.0.0.0': ( argvs.host ? argvs.host : '0.0.0.0' );
+const host = process.env.MONACA_TERMINAL ? process.env.MONACA_SERVER_HOST : ( argvs.host ? argvs.host : '0.0.0.0' );
 const port = argvs.port ? argvs.port : DEFAULT_PORT;
 const wss = process.env.MONACA_TERMINAL ? true : false;
 const socketPort = port + 1; //it is used for webpack-hot-client
