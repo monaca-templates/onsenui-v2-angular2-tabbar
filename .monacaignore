@@ -1,6 +1,7 @@
 /.monaca/*
 !/.monaca/project_info.json
 /platforms
+/build
 .DS_Store
 *.swp
 .vscode/

@@ -40,5 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 })
 class AppModule {}
 
+if (module['hot']) module['hot'].accept();
+
 platformBrowserDynamic().bootstrapModule(AppModule)
 .catch(err => console.error(err));
