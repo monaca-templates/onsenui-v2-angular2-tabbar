@@ -67,7 +67,13 @@ let webpackConfig = {
         use: [
           {
             loader: 'html-loader',
-            options: { minimize: true }
+            options: {
+              minimize: true,
+              removeAttributeQuotes: false,
+              keepClosingSlash: true,
+              caseSensitive: true,
+              conservativeCollapse: true
+            }
           }
         ]
       },
