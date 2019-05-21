@@ -84,6 +84,7 @@ let webpackConfig = {
       {
         test: /\.css$/,
         use: [          
+          'to-string-loader',
           devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',

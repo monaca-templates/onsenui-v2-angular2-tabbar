@@ -53,6 +53,7 @@
     "postcss-url": "^7.3.2",
     "progress-bar-webpack-plugin": "^1.11.0",
     "style-loader": "^0.21.0",
+    "to-string-loader": "^1.1.5",
     "ts-loader": "^4.4.2",
     "typescript": "^2.9.2",
     "webpack": "^4.16.0",
