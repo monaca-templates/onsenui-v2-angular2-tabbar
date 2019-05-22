@@ -1,6 +1,6 @@
 {
   "name": "onsenui-v2-angular2-tabbar",
-  "version": "3.0.2+20190514.1",
+  "version": "3.0.3+20190522.1",
   "description": "",
   "dependencies": {
     "@angular/animations": "^7.2.15",
