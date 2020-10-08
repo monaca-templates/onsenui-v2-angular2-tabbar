@@ -13,7 +13,7 @@
     var raw_values = window.location.search.substring(1).split('&');
     var values = {};
     var device = { platform: "" };
-    
+
     if (raw_values) {
       for (var key in raw_values) {
         var tmp = raw_values[key].split('=');
@@ -21,47 +21,43 @@
       }
       device.platform = values.platform;
     }
-    
+
     return device;
   }
-    
-  if (/^https:\/\/preview-.+monaca\.(local||mobi)/.test(location.href)) {
+
+  if (location && typeof location.href === "string" && /^https:\/\/preview-.+monaca\.(local||mobi)/.test(location.href)) {
     window.device = getDeviceObjectForPreview();
   }
- 
-  if ((navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPhone|iPad|iPod/i))) {
+
+  if (
+      (navigator.userAgent.match(/Android/i))
+      || (navigator.userAgent.match(/iPhone|iPad|iPod/i))
+      || (navigator.userAgent.match(/Macintosh; Intel Mac OS X/i) && location.protocol.match(/^https?:/) === null)
+  ) {
+
     if (typeof location.href === "string") {
-      var relativePath = location.href.split("/www")[1];
-      var paths = relativePath.split("/");
-      var cordovaJsUrl = ""; 
-      for (var i = 0; i < paths.length - 2; i++) {
-        cordovaJsUrl += "../";
+      var cordovaJsUrl = location.protocol + "//" + location.hostname + "/";
+      var relativePath = "";
+      if (location.href.indexOf('/www') !== -1) {
+        relativePath = location.href.split("/www")[1];
+        var paths = relativePath.split("/");
+        cordovaJsUrl = "";
+        for (var i = 0; i < paths.length - 2; i++) {
+          cordovaJsUrl += "../";
+        }
       }
       document.write("<script src=\"" + cordovaJsUrl+ "cordova.js" + "\"></script>");
     }
-  } else if ( ((navigator.userAgent.match(/MSIE\s10.0/)) && (navigator.userAgent.match(/Windows\sNT\s6.2/)) ) || navigator.userAgent.match(/MSAppHost/) || navigator.userAgent.match(/Electron/gi)) {
+  } else if ( (navigator.userAgent.match(/MSIE\s10.0/) && navigator.userAgent.match(/Windows\sNT\s6.2/)) || navigator.userAgent.match(/MSAppHost/)) {
     var elm = document.createElement('script');
     elm.setAttribute("src", "cordova.js");
     document.getElementsByTagName("head")[0].appendChild(elm);
   };
 })();
+
+;
 /*** <End:monaca-cordova-loader LoadJs:"components/monaca-cordova-loader/cordova-loader.js"> ***/
 /*** <End:monaca-cordova-loader> ***/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*** <Start:monaca-core-utils> ***/
 /*** <Start:monaca-core-utils LoadJs:"components/monaca-core-utils/monaca-core-utils.js"> ***/
@@ -69,7 +65,7 @@
  * Monaca Core Utility Library
  * This library requires cordova.js
  *
- * @version 2.0.7
+ * @version 2.1.0
  * @author  Asial Corporation
  */
 window.monaca = window.monaca || {};
@@ -116,7 +112,10 @@ window.monaca = window.monaca || {};
      * Check User-Agent
      */
     var isAndroid = !!(navigator.userAgent.match(/Android/i));
-    var isIOS     = !!(navigator.userAgent.match(/iPhone|iPad|iPod/i));
+    var isIOS     = !!(
+        (navigator.userAgent.match(/iPhone|iPad|iPod/i))
+        || (navigator.userAgent.match(/Macintosh; Intel Mac OS X/i) && location.protocol.match(/^https?:/) === null) // iOS 13.0 iPad 9.7 inch
+    );
     monaca.isAndroid = isAndroid;
     monaca.isIOS     = isIOS;
 
@@ -251,75 +250,6 @@ window.monaca = window.monaca || {};
         clearAll = clearAll || false;
         monaca.apiQueue.exec(null, null, transitionPluginName, "clearPageStack", [clearAll]);
     };
-
-
-    /**
-     * Console API from independent PhoneGap.
-     */
-    window.monaca.console = window.monaca.console || {};
-
-    /**
-     * base method for send log.
-     */
-    monaca.console.sendLog = function(level, url, line, char, arguments) {
-        var message;
-        for (var i=0; i<arguments.length; i++){
-            if (typeof arguments[i] == "string") {
-                message = arguments[i];
-            } else {
-                message = JSON.stringify(arguments[i]);
-            }
-            if (message === undefined) {
-                message = "undefined";
-            }
-
-            if (isIOS) {
-                // not checked yet  or  confirmed MonacaDebugger
-                if (! monaca.isMonacaDebuggerChecked || monaca.isMonacaDebugger ) {
-                  var head = message.substr(0, 5);
-                  if (window.monaca.isDeviceReady !== true || (head != 'ERROR' && head != 'WARN:')) {
-                      var xhr = new XMLHttpRequest();
-                      var path = "https://monaca-debugger.local/log?level=" + encodeURIComponent(level) + "&message=" + encodeURIComponent(message) + "&at=" + (new Date()).getTime();
-                      xhr.open("GET", path);
-                      xhr.send();
-                  }
-                }
-                window.orig_console[level](message);
-            } else {
-                window.console[level](message);
-            }
-        }
-    }
-
-    /**
-     * monaca console methods
-     */
-    var methods = ["debug", "info", "log", "warn", "error"];
-    for (var i=0; i<methods.length; i++) {
-        var method = methods[i];
-        monaca.console[method] = function(method) {
-            return function() {
-                monaca.console.sendLog(method, null, null, null, arguments);
-            };
-        }(method);
-    }
-
-    /** Replace window.console if iOS **/
-    if (isIOS) {
-      window.orig_console = window.console;
-      window.console = window.monaca.console;
-      window.addEventListener( "error" , function (desc, page, line, char) {
-          monaca.console.sendLog("error", null, null, null, [ { "message" : desc.message , "page" : desc.filename , "line" : desc.lineno , "char" : desc.colno   } ]);
-      } , false );
-      // window.onerror = function (desc, page, line, char) {
-      //    monaca.console.sendLog("error", page, line, char, [ { "message" : desc , "page" : page , "line" : line, "char" : char } ] );
-      // };
-    }
-    /* Comment out for now
-    window.onerror = function (desc, page, line, char) {
-      monaca.console.sendLog("error", page, line, char, [desc]);
-    };
-    */
 
     window.monaca.splashScreen = window.monaca.splashScreen || {};
     var splashScreenPluginName = "MonacaSplashScreen";

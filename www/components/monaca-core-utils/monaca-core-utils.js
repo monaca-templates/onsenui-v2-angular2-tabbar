@@ -2,7 +2,7 @@
  * Monaca Core Utility Library
  * This library requires cordova.js
  *
- * @version 2.0.7
+ * @version 2.1.0
  * @author  Asial Corporation
  */
 window.monaca = window.monaca || {};
@@ -49,7 +49,10 @@ window.monaca = window.monaca || {};
      * Check User-Agent
      */
     var isAndroid = !!(navigator.userAgent.match(/Android/i));
-    var isIOS     = !!(navigator.userAgent.match(/iPhone|iPad|iPod/i));
+    var isIOS     = !!(
+        (navigator.userAgent.match(/iPhone|iPad|iPod/i))
+        || (navigator.userAgent.match(/Macintosh; Intel Mac OS X/i) && location.protocol.match(/^https?:/) === null) // iOS 13.0 iPad 9.7 inch
+    );
     monaca.isAndroid = isAndroid;
     monaca.isIOS     = isIOS;
 
@@ -184,75 +187,6 @@ window.monaca = window.monaca || {};
         clearAll = clearAll || false;
         monaca.apiQueue.exec(null, null, transitionPluginName, "clearPageStack", [clearAll]);
     };
-
-
-    /**
-     * Console API from independent PhoneGap.
-     */
-    window.monaca.console = window.monaca.console || {};
-
-    /**
-     * base method for send log.
-     */
-    monaca.console.sendLog = function(level, url, line, char, arguments) {
-        var message;
-        for (var i=0; i<arguments.length; i++){
-            if (typeof arguments[i] == "string") {
-                message = arguments[i];
-            } else {
-                message = JSON.stringify(arguments[i]);
-            }
-            if (message === undefined) {
-                message = "undefined";
-            }
-
-            if (isIOS) {
-                // not checked yet  or  confirmed MonacaDebugger
-                if (! monaca.isMonacaDebuggerChecked || monaca.isMonacaDebugger ) {
-                  var head = message.substr(0, 5);
-                  if (window.monaca.isDeviceReady !== true || (head != 'ERROR' && head != 'WARN:')) {
-                      var xhr = new XMLHttpRequest();
-                      var path = "https://monaca-debugger.local/log?level=" + encodeURIComponent(level) + "&message=" + encodeURIComponent(message) + "&at=" + (new Date()).getTime();
-                      xhr.open("GET", path);
-                      xhr.send();
-                  }
-                }
-                window.orig_console[level](message);
-            } else {
-                window.console[level](message);
-            }
-        }
-    }
-
-    /**
-     * monaca console methods
-     */
-    var methods = ["debug", "info", "log", "warn", "error"];
-    for (var i=0; i<methods.length; i++) {
-        var method = methods[i];
-        monaca.console[method] = function(method) {
-            return function() {
-                monaca.console.sendLog(method, null, null, null, arguments);
-            };
-        }(method);
-    }
-
-    /** Replace window.console if iOS **/
-    if (isIOS) {
-      window.orig_console = window.console;
-      window.console = window.monaca.console;
-      window.addEventListener( "error" , function (desc, page, line, char) {
-          monaca.console.sendLog("error", null, null, null, [ { "message" : desc.message , "page" : desc.filename , "line" : desc.lineno , "char" : desc.colno   } ]);
-      } , false );
-      // window.onerror = function (desc, page, line, char) {
-      //    monaca.console.sendLog("error", page, line, char, [ { "message" : desc , "page" : page , "line" : line, "char" : char } ] );
-      // };
-    }
-    /* Comment out for now
-    window.onerror = function (desc, page, line, char) {
-      monaca.console.sendLog("error", page, line, char, [desc]);
-    };
-    */
 
     window.monaca.splashScreen = window.monaca.splashScreen || {};
     var splashScreenPluginName = "MonacaSplashScreen";
