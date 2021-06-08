@@ -1,6 +1,6 @@
 {
   "name": "onsenui-v2-angular2-tabbar",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "",
   "dependencies": {
     "@angular/animations": "^7.2.15",
@@ -17,7 +17,7 @@
     "core-js": "2.4.1",
     "monaca-plugin-monaca-core": "3.3.1",
     "ngx-onsenui": "^7.0.0",
-    "onsenui": "2.10.8",
+    "onsenui": "2.11.2",
     "rxjs": "^6.5.2",
     "zone.js": "0.8.26"
   },
