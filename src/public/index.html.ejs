@@ -12,6 +12,11 @@
   <script type="text/javascript" src="<%= htmlWebpackPlugin.options.externalJS[dep] %>"></script><% } %>
 <% for (var dep in htmlWebpackPlugin.options.externalCSS) { %>
   <link rel="stylesheet" type="text/css" href="<%= htmlWebpackPlugin.options.externalCSS[dep] %>"><% } %>
+  <style>
+    body {
+      min-height: 100vh;
+    }
+  </style>
 </head>
 <body>
   <app></app>
