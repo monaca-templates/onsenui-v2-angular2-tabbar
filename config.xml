@@ -3,7 +3,6 @@
   <name>Onsen UI v2 Angular2 Tabbar</name>
   <description/>
   <author/>
-  <access origin="*"/>
   <content src="index.html"/>
   <preference name="loglevel" value="DEBUG"/>
   <preference name="AndroidLaunchMode" value="singleTop"/>
