@@ -10,8 +10,7 @@ const devMode = process.env.WEBPACK_SERVE || argvs.mode === 'development';
 const DEFAULT_PORT = 8080;
 const host = process.env.MONACA_SERVER_HOST || argvs.host || '0.0.0.0';
 const port = argvs.port || DEFAULT_PORT;
-const wss = process.env.MONACA_TERMINAL ? true : false;
-const socketPort = port + 1; //it is used for webpack-hot-client
+const socketProtocol = process.env.MONACA_TERMINAL ? 'wss' : 'ws';
 
 let webpackConfig = {
   mode: devMode ? 'development' : 'production',
@@ -79,12 +78,14 @@ let webpackConfig = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?\S*)?$/,
-        loader: 'file-loader?name=assets/[name].[hash].[ext]'
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name].[hash].[ext]'
+        }
       },
       {
         test: /\.css$/,
-        use: [          
-          'to-string-loader',
+        use: [
           devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
@@ -122,7 +123,7 @@ let webpackConfig = {
   resolveLoader: {
     modules: [ 'node_modules' ]
   },
- 
+
   performance: {
     hints: false
   }
@@ -133,9 +134,13 @@ if(devMode) {
 
   webpackConfig.devtool = 'eval';
 
-  webpackConfig.serve = {
+  webpackConfig.devServer = {
     port: port,
     host: host,
+    allowedHosts: 'all',
+    client: {
+      webSocketURL: `${socketProtocol}://${host}:${port}/ws`,
+    },
     devMiddleware: {
       publicPath: '/',
       stats: {
@@ -146,29 +151,30 @@ if(devMode) {
         warnings: true,
         builtAt: true,
       }
-    },
-    hotClient: {
-      port: socketPort,
-      https: wss
     }
   }
+
+  // ignore all warnings - System.import() is deprecated and will be removed soon. Use import() instead.
+  webpackConfig.ignoreWarnings = [
+    (warning) => true,
+  ];
 
   let devPlugins = [
     new HtmlWebPackPlugin({
       template: 'src/public/index.html.ejs',
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'auto'
     })
   ];
-  
-  webpackConfig.plugins = webpackConfig.plugins.concat( devPlugins　);
+
+  webpackConfig.plugins = webpackConfig.plugins.concat(devPlugins);
 
 } else {
-  
+
   // Production mode
   let prodPlugins = [
     new HtmlWebPackPlugin({
       template: 'src/public/index.html.ejs',
-      chunksSortMode: 'dependency',
+      chunksSortMode: 'auto',
       externalCSS: ['components/loader.css'],
       externalJS: ['components/loader.js'],
       minify: {
@@ -180,7 +186,7 @@ if(devMode) {
       }
     })
   ];
-  webpackConfig.plugins = webpackConfig.plugins.concat( prodPlugins );
+  webpackConfig.plugins = webpackConfig.plugins.concat(prodPlugins);
 
 }
 
