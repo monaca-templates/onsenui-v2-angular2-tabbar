@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="com.example.helloworld" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" id="com.example.helloworld" version="1.0.0">
   <name>Onsen UI v2 Angular2 Tabbar</name>
   <description/>
   <author/>
