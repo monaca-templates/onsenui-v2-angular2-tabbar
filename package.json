@@ -18,8 +18,8 @@
     "cordova-plugin-splashscreen": "6.0.0",
     "core-js": "2.4.1",
     "monaca-plugin-monaca-core": "3.3.1",
-    "ngx-onsenui": "^7.0.0",
-    "onsenui": "2.11.2",
+    "ngx-onsenui": "^7.1.1",
+    "onsenui": "2.12.10",
     "rxjs": "^6.5.2",
     "zone.js": "0.8.26"
   },
