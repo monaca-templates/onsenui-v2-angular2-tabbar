@@ -3,6 +3,6 @@
   "framework_version": "3.5",
   "java_version": "17",
   "xcode_version": "26.0.1",
-  "cordova_android_platform": "14.0.1",
+  "cordova_android_platform": "15.1.0",
   "cordova_ios_platform": "8.0.1"
 }
